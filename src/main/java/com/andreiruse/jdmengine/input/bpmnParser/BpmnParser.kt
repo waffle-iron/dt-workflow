@@ -18,7 +18,10 @@ class BpmnParser {
                 .map { x -> rootNode.childNodes.item(x) }
                 .find { x -> "bpmn:process".equals(x?.nodeName) }
                 ?.childNodes
-        val bpmnNodeCount: Int = bpmnNodes?.length as Int
+        if(bpmnNodes == null || bpmnNodes.length == 0) {
+            return
+        }
+        val bpmnNodeCount: Int = bpmnNodes.length as Int
         val bpmnNodeList = IntProgression.fromClosedRange(0, bpmnNodes?.length as Int, 1).map { x -> bpmnNodes?.item(x) } //Fixme Length-1!
         //ToDo Find a generic way to parse all types of elements, and recursively (subprocesses, etc)
         val processEdges = bpmnNodeList.filter { xmlNode -> "bpmn:sequenceFlow".equals(xmlNode?.nodeName) }.map { edge -> SequenceFlow(edge?.attributes!!) }
