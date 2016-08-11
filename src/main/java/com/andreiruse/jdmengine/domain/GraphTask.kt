@@ -1,6 +1,5 @@
 package com.andreiruse.jdmengine.domain
 
-import com.andreiruse.jdmengine.domain.status.Created
 import com.andreiruse.jdmengine.domain.status.TaskStatus
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.w3c.dom.NamedNodeMap
@@ -11,7 +10,7 @@ import java.util.*
 open class GraphTask(map: NamedNodeMap, nodeList: NodeList) : GraphObject {
     private val taskId: Node
     private val taskTitle: Node
-    private val status: TaskStatus = Created()
+    private val status: TaskStatus = TaskStatus.CREATED
     private val incomingLinkNames = ArrayList<String>()
     private val outgoingLinkNames = ArrayList<String>()
 
