@@ -14,7 +14,7 @@ class EngineProcess {
     fun run(config: EngineConfig, bpmnFileName: String) {
         val parser = BpmnParser()
         try {
-            parser.parse(bpmnFileName)
+            val graph = parser.parse(bpmnFileName)
         } catch (e: ParserConfigurationException) {
             e.printStackTrace()
         } catch (e: IOException) {
