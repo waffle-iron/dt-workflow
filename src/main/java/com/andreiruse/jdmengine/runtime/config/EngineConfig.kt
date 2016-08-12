@@ -8,7 +8,7 @@ import org.apache.commons.configuration.PropertiesConfiguration
 import org.slf4j.LoggerFactory
 
 class EngineConfig(private val environment: String?) {
-    private var configuration: Configuration = BaseConfiguration();
+    private var configuration: Configuration = BaseConfiguration()
 
     init {
         this.loadConfig()

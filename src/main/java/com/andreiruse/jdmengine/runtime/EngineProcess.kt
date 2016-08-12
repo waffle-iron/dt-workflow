@@ -33,8 +33,8 @@ class EngineProcess {
             val bpmnNameOption = Option.builder().argName("BPMN file path").hasArg().longOpt("bpmn").required().build()
             val environmentOption = Option.builder().argName("Environment Name").hasArg().longOpt("env").required().build()
             val argumentValues = processArgs(args, Arrays.asList(environmentOption, bpmnNameOption))
-            val engineConfig = EngineConfig(argumentValues.get(environmentOption.longOpt))
-            val bpmnFileName = argumentValues.get(bpmnNameOption.longOpt)
+            val engineConfig = EngineConfig(argumentValues[environmentOption.longOpt])
+            val bpmnFileName = argumentValues[bpmnNameOption.longOpt]
             logger.info("Starting engine")
             process.run(engineConfig, bpmnFileName!!)
         }
@@ -44,7 +44,7 @@ class EngineProcess {
             for (option in optionList) {
                 options.addOption(option)
             }
-            val commandLine = extractCommandLineArgs(args, options);
+            val commandLine = extractCommandLineArgs(args, options)
             val argValues = HashMap<String, String>()
             for (option in optionList) {
                 argValues.put(option.longOpt, commandLine.getOptionValue(option.longOpt))
