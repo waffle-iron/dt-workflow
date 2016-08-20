@@ -47,4 +47,13 @@ class InMemoryGraph {
             graph.addEdge(edgeSourceObject, edgeDestinationObject)
         }
     }
+
+    fun getSize() : Int {
+        return graph.vertexSet().size
+    }
+
+    fun getVertices() : Set<Pair<String, String>> {
+        return graph.vertexSet()
+    }
+
 }
