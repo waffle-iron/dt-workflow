@@ -7,7 +7,7 @@ import org.w3c.dom.Node
 import org.w3c.dom.NodeList
 import java.util.*
 
-open class GraphTask(map: NamedNodeMap, nodeList: NodeList) : GraphObject {
+open class GraphTask(map: NamedNodeMap, nodeList: NodeList) {
     private val taskId: Node
     private val taskTitle: Node
     private val status: TaskStatus = TaskStatus.CREATED
