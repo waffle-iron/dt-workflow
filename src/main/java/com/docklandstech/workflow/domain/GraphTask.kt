@@ -1,7 +1,5 @@
 package com.docklandstech.workflow.domain
 
-import com.docklandstech.workflow.domain.status.TaskStatus
-import org.apache.commons.lang3.builder.ToStringBuilder
 import org.w3c.dom.NamedNodeMap
 import org.w3c.dom.Node
 import org.w3c.dom.NodeList
@@ -10,7 +8,7 @@ import java.util.*
 open class GraphTask(map: NamedNodeMap, nodeList: NodeList) {
     private val taskId: Node
     private val taskTitle: Node
-    private val status: TaskStatus = TaskStatus.CREATED
+//    private val status: TaskStatus = TaskStatus.CREATED
     private val incomingLinkNames = ArrayList<String>()
     private val outgoingLinkNames = ArrayList<String>()
 
@@ -24,9 +22,5 @@ open class GraphTask(map: NamedNodeMap, nodeList: NodeList) {
                 .toCollection(incomingLinkNames)
         edges.filter { nodeName -> "bpmn:outgoing".equals(nodeName) }
                 .toCollection(outgoingLinkNames)
-    }
-
-    override fun toString(): String {
-        return ToStringBuilder(this).append("taskId", taskId).append("taskTitle", taskTitle).append("status", status).append("incomingLinkNames", incomingLinkNames).append("outgoingLinkNames", outgoingLinkNames).toString()
     }
 }

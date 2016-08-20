@@ -20,6 +20,7 @@ class InMemoryGraph {
             val taskId = xmlNode.attributes.getNamedItem("id").nodeValue
             val taskName = if (xmlNode.attributes.getNamedItem("name") != null) xmlNode.attributes.getNamedItem("name").nodeValue else ""
             val vertexValues = Pair(taskId, taskName)
+//            val node = GraphTask(taskId, taskName)
             graphNodes.put(taskId, vertexValues)
             graph.addVertex(vertexValues)
         }
