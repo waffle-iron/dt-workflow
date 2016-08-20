@@ -1,4 +1,4 @@
-package com.andreiruse.jdmengine.domain.status
+package com.docklandstech.workflow.domain.status
 
 enum class TaskStatus {
     CREATED(), //Task is created

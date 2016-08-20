@@ -1,4 +1,4 @@
-package com.andreiruse.jdmengine.domain
+package com.docklandstech.workflow.domain
 
 import org.jgrapht.DirectedGraph
 import org.jgrapht.graph.DefaultDirectedGraph

@@ -1,4 +1,4 @@
-package com.andreiruse.jdmengine.domain
+package com.docklandstech.workflow.domain
 
 import org.w3c.dom.NamedNodeMap
 import org.w3c.dom.NodeList

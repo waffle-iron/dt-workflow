@@ -1,6 +1,6 @@
-package com.andreiruse.jdmengine.runtime.config
+package com.docklandstech.workflow.runtime.config
 
-import com.andreiruse.jdmengine.exceptions.JdmEngineRuntimeException
+import com.docklandstech.workflow.exceptions.JdmEngineRuntimeException
 import org.apache.commons.configuration.BaseConfiguration
 import org.apache.commons.configuration.Configuration
 import org.apache.commons.configuration.ConfigurationException

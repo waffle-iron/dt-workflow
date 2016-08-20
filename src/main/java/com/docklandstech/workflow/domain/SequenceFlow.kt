@@ -1,4 +1,4 @@
-package com.andreiruse.jdmengine.domain
+package com.docklandstech.workflow.domain
 
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.w3c.dom.NamedNodeMap

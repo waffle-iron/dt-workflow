@@ -1,7 +1,7 @@
-package com.andreiruse.jdmengine.runtime
+package com.docklandstech.workflow.runtime
 
-import com.andreiruse.jdmengine.input.bpmnParser.BpmnParser
-import com.andreiruse.jdmengine.runtime.config.EngineConfig
+import com.docklandstech.workflow.input.bpmnParser.BpmnParser
+import com.docklandstech.workflow.runtime.config.EngineConfig
 import org.apache.commons.cli.*
 import org.slf4j.LoggerFactory
 import org.xml.sax.SAXException

@@ -1,4 +1,4 @@
-package com.andreiruse.jdmengine.runtime
+package com.docklandstech.workflow.runtime
 
 import org.junit.Test
 

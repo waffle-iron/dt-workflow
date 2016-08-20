@@ -1,6 +1,6 @@
-package com.andreiruse.jdmengine.input.bpmnParser
+package com.docklandstech.workflow.input.bpmnParser
 
-import com.andreiruse.jdmengine.domain.InMemoryGraph
+import com.docklandstech.workflow.domain.InMemoryGraph
 import org.w3c.dom.Node
 import org.xml.sax.SAXException
 import java.io.IOException

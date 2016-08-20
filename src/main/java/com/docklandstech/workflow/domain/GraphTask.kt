@@ -1,6 +1,6 @@
-package com.andreiruse.jdmengine.domain
+package com.docklandstech.workflow.domain
 
-import com.andreiruse.jdmengine.domain.status.TaskStatus
+import com.docklandstech.workflow.domain.status.TaskStatus
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.w3c.dom.NamedNodeMap
 import org.w3c.dom.Node

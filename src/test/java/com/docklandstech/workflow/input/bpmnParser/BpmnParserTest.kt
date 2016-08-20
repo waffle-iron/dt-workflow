@@ -1,4 +1,4 @@
-package com.andreiruse.jdmengine.input.bpmnParser
+package com.docklandstech.workflow.input.bpmnParser
 
 import org.junit.Test
 import org.xml.sax.SAXParseException
