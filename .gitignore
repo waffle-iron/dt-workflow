@@ -22,8 +22,6 @@ hs_err_pid*
 ## File-based project format:
 *.iws
 
-## Plugin-specific files:
-
 # IntelliJ
 /out/
 
