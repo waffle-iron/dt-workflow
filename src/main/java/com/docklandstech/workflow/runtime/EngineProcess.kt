@@ -15,6 +15,8 @@ class EngineProcess {
         val parser = BpmnParser()
         try {
             val graph = parser.parse(bpmnFileName)
+            val runner : WorkflowRunner = WorkflowRunner(graph)
+            runner.run()
         } catch (e: ParserConfigurationException) {
             e.printStackTrace()
         } catch (e: IOException) {

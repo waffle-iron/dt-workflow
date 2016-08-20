@@ -10,4 +10,8 @@ data class GraphTask(val taskId : String, val taskTitle: String) {
     fun addChild(nextElement: GraphTask) {
         this.outgoingLinkNames.add(nextElement)
     }
+
+    fun getNext() : GraphTask? {
+            return this.outgoingLinkNames.first()
+    }
 }

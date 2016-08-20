@@ -31,6 +31,8 @@ class BpmnParser {
                     edgesToProcessLater.add(it)
                 } else if("bpmn:exclusiveGateway".equals(it.nodeName)) {
                     graph.addGateway(it)
+                } else if("bpmn:startEvent".equals(it.nodeName)) {
+                    graph.addTask(it, true)
                 } else {
                     graph.addTask(it)
                 }
