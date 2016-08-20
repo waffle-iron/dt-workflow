@@ -1,10 +1,6 @@
 package com.docklandstech.workflow.domain
 
 import com.docklandstech.workflow.domain.status.TaskStatus
-import org.apache.commons.lang3.builder.ToStringBuilder
-import org.w3c.dom.NamedNodeMap
-import org.w3c.dom.Node
-import org.w3c.dom.NodeList
 import java.util.*
 
 open class GraphTask(id : Int, name: String) {
