@@ -3,9 +3,9 @@ package com.docklandstech.workflow.domain
 import com.docklandstech.workflow.domain.status.TaskStatus
 import java.util.*
 
-open class GraphTask(id : Int, name: String) {
+open class GraphTask(id : String, name: String) {
     private val taskTitle: String
-    private val taskId: Int
+    private val taskId: String
     private val status: TaskStatus = TaskStatus.CREATED
     private val outgoingLinkNames = ArrayList<GraphTask>()
 
@@ -14,7 +14,7 @@ open class GraphTask(id : Int, name: String) {
         this.taskTitle = name
     }
 
-    constructor(id: Int, name: String, nextElement: GraphTask ) : this(id, name){
+    constructor(id: String, name: String, nextElement: GraphTask ) : this(id, name){
         this.addChild(nextElement)
     }
 

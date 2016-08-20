@@ -7,9 +7,9 @@ import org.w3c.dom.Node
 import java.util.*
 
 class InMemoryGraph {
-    private var graphNodes: MutableMap<String, Pair<String, String>> = HashMap()
-    private var _graph: DirectedGraph<Pair<String, String>, DefaultEdge> = DefaultDirectedGraph(DefaultEdge::class.java)
-    var graph: DirectedGraph<Pair<String, String>, DefaultEdge>
+    private var graphNodes: MutableMap<String, GraphTask> = HashMap()
+    private var _graph: DirectedGraph<GraphTask, DefaultEdge> = DefaultDirectedGraph(DefaultEdge::class.java)
+    var graph: DirectedGraph<GraphTask, DefaultEdge>
         get() = _graph
         set(value) {
             _graph = value
@@ -19,8 +19,7 @@ class InMemoryGraph {
         if (xmlNode.hasAttributes()) {
             val taskId = xmlNode.attributes.getNamedItem("id").nodeValue
             val taskName = if (xmlNode.attributes.getNamedItem("name") != null) xmlNode.attributes.getNamedItem("name").nodeValue else ""
-            val vertexValues = Pair(taskId, taskName)
-//            val node = GraphTask(taskId, taskName)
+            val vertexValues = GraphTask(taskId, taskName)
             graphNodes.put(taskId, vertexValues)
             graph.addVertex(vertexValues)
         }
@@ -30,7 +29,7 @@ class InMemoryGraph {
         if (xmlNode.hasAttributes()) {
             val gatewayId = xmlNode.attributes.getNamedItem("id").nodeValue
             val gatewayName = if (xmlNode.attributes.getNamedItem("name") != null) xmlNode.attributes.getNamedItem("name").nodeValue else ""
-            val vertexValues = Pair(gatewayId, gatewayName)
+            val vertexValues = GraphTask(gatewayId, gatewayName)
             graphNodes.put(gatewayId, vertexValues)
             graph.addVertex(vertexValues)
         }
@@ -43,8 +42,8 @@ class InMemoryGraph {
             }
             val edgeSource = xmlNode.attributes.getNamedItem("sourceRef").nodeValue
             val edgeDestination = xmlNode.attributes.getNamedItem("targetRef").nodeValue
-            val edgeSourceObject: Pair<String, String>? = graphNodes[edgeSource]
-            val edgeDestinationObject: Pair<String, String>? = graphNodes[edgeDestination]
+            val edgeSourceObject: GraphTask? = graphNodes[edgeSource]
+            val edgeDestinationObject: GraphTask? = graphNodes[edgeDestination]
             graph.addEdge(edgeSourceObject, edgeDestinationObject)
         }
     }
