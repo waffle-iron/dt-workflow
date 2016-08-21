@@ -52,7 +52,7 @@ class InMemoryGraph {
         return graph.vertexSet().size
     }
 
-    fun getVertices() : Set<Pair<String, String>> {
+    fun getVertices() : Set<GraphTask> {
         return graph.vertexSet()
     }
 
