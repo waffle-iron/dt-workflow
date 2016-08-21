@@ -11,7 +11,5 @@ data class GraphTask(val taskId : String, val taskTitle: String) {
         this.outgoingLinkNames.add(nextElement)
     }
 
-    fun getNext() : GraphTask? {
-            return this.outgoingLinkNames.first()
-    }
+    fun getNext(): GraphTask? = this.outgoingLinkNames.first()
 }

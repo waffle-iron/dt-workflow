@@ -57,10 +57,21 @@ class InMemoryGraph {
             val edgeDestination = xmlNode.attributes.getNamedItem("targetRef").nodeValue
             val edgeSourceObject: GraphTask? = graphNodes[edgeSource]
             val edgeDestinationObject: GraphTask? = graphNodes[edgeDestination]
+
             edgeSourceObject!!.addChild(edgeDestinationObject!!)
+
             graph.addEdge(edgeSourceObject, edgeDestinationObject)
 
         }
 
     }
+
+    fun getSize() : Int {
+        return graph.vertexSet().size
+    }
+
+    fun getVertices() : MutableSet<GraphTask>? {
+        return graph.vertexSet()
+    }
+
 }
