@@ -3,7 +3,7 @@ package com.docklandstech.workflow.domain
 import com.docklandstech.workflow.domain.status.TaskStatus
 import java.util.*
 
-data class GraphTask(val taskId : String, val taskTitle: String) {
+data class GraphTask(val taskId: String, val taskTitle: String) {
     private val status: TaskStatus = TaskStatus.CREATED
     private val outgoingLinkNames = ArrayList<GraphTask>()
 
@@ -11,5 +11,9 @@ data class GraphTask(val taskId : String, val taskTitle: String) {
         this.outgoingLinkNames.add(nextElement)
     }
 
-    fun getNext(): GraphTask? = this.outgoingLinkNames.first()
+    fun getNext(): GraphTask? {
+        if (this.outgoingLinkNames.isNotEmpty())
+            return this.outgoingLinkNames.first()
+        return null
+    }
 }
