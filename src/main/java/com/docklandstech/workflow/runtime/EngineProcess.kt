@@ -4,25 +4,14 @@ import com.docklandstech.workflow.input.bpmnParser.BpmnParser
 import com.docklandstech.workflow.runtime.config.EngineConfig
 import org.apache.commons.cli.*
 import org.slf4j.LoggerFactory
-import org.xml.sax.SAXException
-import java.io.IOException
+import java.nio.file.Paths
 import java.util.*
-import javax.xml.parsers.ParserConfigurationException
 
 class EngineProcess {
 
     fun run(config: EngineConfig, bpmnFileName: String) {
         val parser = BpmnParser()
-        try {
-            val graph = parser.parse(bpmnFileName)
-        } catch (e: ParserConfigurationException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: SAXException) {
-            e.printStackTrace()
-        }
-
+        val graph = parser.parse(Paths.get(bpmnFileName))
     }
 
     companion object {
@@ -61,7 +50,7 @@ class EngineProcess {
                 logger.error("Invalid command line parameters" + e.message)
                 val helpFormatter = HelpFormatter()
                 helpFormatter.printHelp(EngineProcess::class.java.name, options)
-                throw RuntimeException(e)
+                throw e
             }
             return commandLine
         }

@@ -1,58 +1,46 @@
 package com.docklandstech.workflow.domain
 
+import com.docklandstech.workflow.domain.bpmn.*
 import org.jgrapht.DirectedGraph
 import org.jgrapht.graph.DefaultDirectedGraph
 import org.jgrapht.graph.DefaultEdge
-import org.w3c.dom.Node
 import java.util.*
 
 class InMemoryGraph {
-    private var graphNodes: MutableMap<String, GraphTask> = HashMap()
-    private var _graph: DirectedGraph<GraphTask, DefaultEdge> = DefaultDirectedGraph(DefaultEdge::class.java)
-    var graph: DirectedGraph<GraphTask, DefaultEdge>
-        get() = _graph
-        set(value) {
-            _graph = value
-        }
+    var graphNodes: MutableMap<String, AbstractBpmnGraphElement> = HashMap()
+    var graph: DirectedGraph<AbstractBpmnGraphElement, DefaultEdge> = DefaultDirectedGraph(DefaultEdge::class.java)
 
-    fun addTask(xmlNode: Node) {
-        if (xmlNode.hasAttributes()) {
-            val taskId = xmlNode.attributes.getNamedItem("id").nodeValue
-            val taskName = if (xmlNode.attributes.getNamedItem("name") != null) xmlNode.attributes.getNamedItem("name").nodeValue else ""
-            val vertexValues = GraphTask(taskId, taskName)
-            graphNodes.put(taskId, vertexValues)
-            graph.addVertex(vertexValues)
-        }
+    fun addTask(task: BpmnTask) {
+        graphNodes.put(task.id, task)
+        graph.addVertex(task)
     }
 
-    fun addGateway(xmlNode: Node) {
-        if (xmlNode.hasAttributes()) {
-            val gatewayId = xmlNode.attributes.getNamedItem("id").nodeValue
-            val gatewayName = if (xmlNode.attributes.getNamedItem("name") != null) xmlNode.attributes.getNamedItem("name").nodeValue else ""
-            val vertexValues = GraphTask(gatewayId, gatewayName)
-            graphNodes.put(gatewayId, vertexValues)
-            graph.addVertex(vertexValues)
-        }
+    fun addStartEvent(startEvent : BpmnStartEvent) {
+        graphNodes.put(startEvent.id, startEvent)
+        graph.addVertex(startEvent)
     }
 
-    fun addSequence(xmlNode: Node) {
-        if (xmlNode.hasAttributes()) {
-            if (xmlNode.attributes.item(1) == null || xmlNode.attributes.item(2) == null) {
-                return
-            }
-            val edgeSource = xmlNode.attributes.getNamedItem("sourceRef").nodeValue
-            val edgeDestination = xmlNode.attributes.getNamedItem("targetRef").nodeValue
-            val edgeSourceObject: GraphTask? = graphNodes[edgeSource]
-            val edgeDestinationObject: GraphTask? = graphNodes[edgeDestination]
-            graph.addEdge(edgeSourceObject, edgeDestinationObject)
-        }
+    fun addEndEvent(endEvent: BpmnEndEvent) {
+        graphNodes.put(endEvent.id, endEvent)
+        graph.addVertex(endEvent)
     }
 
-    fun getSize() : Int {
+    fun addGateway(gateway : BpmnExclusiveGateway) {
+        graphNodes.put(gateway.id, gateway)
+        graph.addVertex(gateway)
+    }
+
+    fun addSequenceFlow(sequenceFlow : BpmnSequenceFlow) {
+        val sourceNode : AbstractBpmnGraphElement? = graphNodes[sequenceFlow.sourceRef]
+        val targetNode : AbstractBpmnGraphElement? = graphNodes[sequenceFlow.targetRef]
+        graph.addEdge(sourceNode,targetNode)
+    }
+
+    fun getSize(): Int {
         return graph.vertexSet().size
     }
 
-    fun getVertices() : Set<GraphTask> {
+    fun getVertices(): Set<AbstractBpmnGraphElement> {
         return graph.vertexSet()
     }
 

@@ -1,45 +1,33 @@
 package com.docklandstech.workflow.input.bpmnParser
 
 import com.docklandstech.workflow.domain.InMemoryGraph
-import org.w3c.dom.Node
-import org.xml.sax.SAXException
-import java.io.IOException
-import java.util.*
-import javax.xml.parsers.DocumentBuilderFactory
-import javax.xml.parsers.ParserConfigurationException
+import com.docklandstech.workflow.domain.bpmn.BpmnDefinitions
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.dataformat.xml.XmlMapper
+import java.nio.file.Files
+import java.nio.file.Path
 
 class BpmnParser {
 
-    @Throws(ParserConfigurationException::class, IOException::class, SAXException::class)
-    fun parse(bpmnFilePath: String): InMemoryGraph {
-        val document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(bpmnFilePath)
-        document.documentElement.normalize()
-        val rootNode = document.documentElement
-        val bpmnNodes = IntProgression.fromClosedRange(0, rootNode.childNodes.length, 1)
-                .map { x -> rootNode.childNodes.item(x) }
-                .find { x -> "bpmn:process".equals(x?.nodeName) }
-                ?.childNodes
-        if(bpmnNodes == null || bpmnNodes.length == 0) {
-            return InMemoryGraph()
-        }
+    fun parse(bpmnFilePath: Path): InMemoryGraph {
+        val bpmnDocument: BpmnDefinitions = loadBpmnDiagramFromFile(bpmnFilePath)
         val graph = InMemoryGraph()
-        val bpmnNodeList = IntProgression.fromClosedRange(0, bpmnNodes.length, 1).map { x -> bpmnNodes.item(x) } //Fixme Length-1!
-        val edgesToProcessLater : MutableList<Node> = ArrayList()
-        bpmnNodeList.forEach {
-            if(it != null)
-                if("bpmn:sequenceFlow".equals(it.nodeName)) {
-                    edgesToProcessLater.add(it)
-                } else if("bpmn:exclusiveGateway".equals(it.nodeName)) {
-                    graph.addGateway(it)
-                } else {
-                    graph.addTask(it)
-                }
-        }
-        for (node in edgesToProcessLater) {
-            graph.addSequence(node)
-        }
-        println("graph.graph = ${graph.graph}")
+        if (bpmnDocument.process == null || bpmnDocument.process.isEmpty)
+            return graph
+        bpmnDocument.process.tasks.forEach { graph.addTask(it) }
+        bpmnDocument.process.exclusiveGateways.forEach { graph.addGateway(it) }
+        bpmnDocument.process.startEvents.forEach { graph.addStartEvent(it) }
+        bpmnDocument.process.endEvents.forEach { graph.addEndEvent(it) }
+        bpmnDocument.process.sequenceFlows.forEach { graph.addSequenceFlow(it) }
         return graph
+    }
+
+    private fun loadBpmnDiagramFromFile(bpmnFilePath: Path): BpmnDefinitions {
+        val xmlDocSource: String = Files.readAllLines(bpmnFilePath).joinToString("\n")
+        val xmlMapper: XmlMapper = XmlMapper()
+        xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        val bpmnDocument: BpmnDefinitions = xmlMapper.readValue(xmlDocSource, BpmnDefinitions::class.java)
+        return bpmnDocument
     }
 
 }
