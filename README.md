@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/docklandstech/dt-workflow.png?label=ready&title=Ready)](https://waffle.io/docklandstech/dt-workflow)
 # Docklands Tech Workflow
 Workflow execution & task dependency manager (or, a productive way to experiment with Kotlin)
 
